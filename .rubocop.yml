@@ -1,0 +1,49 @@
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/WordArray:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
+Style/TrailingCommaInLiteral:
+  Enabled: false
+Style/TrailingCommaInArguments:
+  Enabled: false
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+Style/CaseIndentation:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Style/RegexpLiteral:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/TrivialAccessors:
+  AllowPredicates: true
+Style/BracesAroundHashParameters:
+  Enabled: false
+Style/IndentHash:
+  Enabled: false
+Style/NumericLiterals:
+  Enabled: false
+AllCops:
+  TargetRubyVersion: 2.2
+  Exclude:
+    - 'bin/**/*'
+    - 'vendor/**/*'
+Style/ExtraSpacing:
+  Enabled: false
+Style/DotPosition:
+  Enabled: false
+Style/SpaceInsideBlockBraces:
+  Enabled: false
+Style/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Style/AlignHash:
+  Enabled: false
