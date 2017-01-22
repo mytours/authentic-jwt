@@ -1,46 +1,44 @@
 require "authentic_jwt/grape/extension"
+require "authentic_jwt/grape/auth_methods"
 require "openssl"
 require "jwt"
 
 module AuthenticJwt
   module Grape
-    module AuthMethods
-      attr_accessor :jwt_payload
-
-      def current_user_id
-        return unless jwt_payload
-        jwt_payload["id"]
-      end
-    end
-
     class Middleware < ::Grape::Middleware::Base
       def before
         return unless scope
 
-        raise Unauthorized unless jwt_payload
+        raise Unauthorized, "JWT public key not present" unless public_key
+
+        raise Unauthorized, "Authorization header not present" unless authorization_header
+
+        raise Unauthorized, "Bearer token not present" unless bearer_token
+
+        raise Unauthorized, "JWT payload not present" unless jwt_payload
 
         context.extend(AuthMethods)
         context.jwt_payload = jwt_payload
 
         return unless account_id
 
-        raise Forbidden unless account_role
+        raise Forbidden, "Account has no role" unless account_role
 
-        raise Forbidden unless acceptable_roles.include?(account_role)
+        raise Forbidden, "Account role is too low" unless acceptable_roles.include?(account_role)
       end
 
       protected
 
       PUBLIC_KEY_ENV_VAR = "AUTHENTIC_AUTH_PUBLIC_KEY".freeze
-      BEARER_PATTERN     = /Bearer (.+)/
-
       ACCOUNT_ID_ENV_VAR = "AUTHENTIC_AUTH_ACCOUNT_ID".freeze
+      BEARER_PATTERN     = /Bearer (.+)/
 
       def context
         env["api.endpoint"]
       end
 
-      def authorization
+      def authorization_header
+        return if env["HTTP_AUTHORIZATION"].to_s.empty?
         env["HTTP_AUTHORIZATION"]
       end
 
@@ -54,24 +52,32 @@ module AuthenticJwt
       end
 
       def bearer_token
-        return unless authorization
-        Regexp.last_match(1) if authorization =~ BEARER_PATTERN
+        return unless authorization_header
+        if authorization_header =~ BEARER_PATTERN
+          result = Regexp.last_match(1)
+          unless result.to_s.empty?
+            result
+          end
+        end
       end
 
       def public_key
-        return unless ENV[PUBLIC_KEY_ENV_VAR]
-        OpenSSL::PKey::RSA.new(ENV[PUBLIC_KEY_ENV_VAR])
+        result = ENV[PUBLIC_KEY_ENV_VAR].to_s
+        return if result.empty?
+        OpenSSL::PKey::RSA.new(result)
       end
 
       def jwt_payload
         return unless bearer_token
+        return unless public_key
         payload, header = JWT.decode(bearer_token, public_key, true, algorithm: "RS512")
         payload
       end
 
       def account_id
-        return unless ENV[ACCOUNT_ID_ENV_VAR]
-        ENV[ACCOUNT_ID_ENV_VAR].to_i
+        result = ENV[ACCOUNT_ID_ENV_VAR].to_s
+        return if result.empty?
+        result.to_i
       end
 
       def account_payload

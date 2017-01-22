@@ -1,5 +1,9 @@
 module AuthenticJwt
   module Role
+    def self.roles
+      MAPPING.keys
+    end
+
     def self.mapping
       MAPPING
     end
@@ -18,13 +22,13 @@ module AuthenticJwt
     WRITE = ["contributor", "author", "editor", "partner", "admin", "internal"].freeze
 
     MAPPING = {
-      "subscriber":  10,
-      "contributor": 20,
-      "author":      30,
-      "editor":      40,
-      "partner":     70,
-      "admin":       80,
-      "internal":    90
+      "subscriber"  => 10,
+      "contributor" => 20,
+      "author"      => 30,
+      "editor"      => 40,
+      "partner"     => 70,
+      "admin"       => 80,
+      "internal"    => 90
     }.freeze
   end
 end

@@ -7,7 +7,7 @@ TODO
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "authentic_jwt"
+gem "authentic-jwt"
 ```
 
 ## Usage
@@ -22,4 +22,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/mytours/authentic_jwt.
+Bug reports and pull requests are welcome on GitHub at https://github.com/mytours/authentic-jwt.

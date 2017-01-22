@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "authentic_jwt/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "authentic_jwt"
+  spec.name          = "authentic-jwt"
   spec.version       = AuthenticJwt::VERSION
   spec.authors       = ["Authentic Limited"]
   spec.email         = ["rubygems@kotiri.com"]
 
   spec.summary       = "Client authentication for Authentic Apps"
   spec.description   = spec.summary
-  spec.homepage      = "https://github.com/mytours/authentic_jwt"
+  spec.homepage      = "https://github.com/mytours/authentic-jwt"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
