@@ -3,10 +3,9 @@ module AuthenticJwt
     module AuthMethods
       attr_accessor :jwt_payload
 
-      def jwt_user_id
+      def jwt_sub
         return unless jwt_payload
-        return unless jwt_payload["id"]
-        jwt_payload["id"].to_i
+        jwt_payload["sub"]
       end
     end
   end

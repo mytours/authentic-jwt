@@ -22,9 +22,9 @@ module AuthenticJwt
 
         return unless account_id
 
-        raise Forbidden, "Account has no role" unless account_role
+        raise Forbidden, "Account has no role" unless account_roles.any?
 
-        raise Forbidden, "Account role is too low" unless acceptable_roles.include?(account_role)
+        raise Forbidden, "Account role is too low" unless (acceptable_roles & account_roles).any?
       end
 
       protected
@@ -77,17 +77,17 @@ module AuthenticJwt
       def account_id
         result = ENV[ACCOUNT_ID_ENV_VAR].to_s
         return if result.empty?
-        result.to_i
+        result
       end
 
       def account_payload
         return unless jwt_payload
-        jwt_payload["accounts"].detect { |account| account["id"] == account_id }
+        jwt_payload["accounts"].detect { |account| account["aud"] == account_id }
       end
 
-      def account_role
+      def account_roles
         return unless account_payload
-        account_payload["role"]
+        account_payload["roles"].collect(&:downcase)
       end
 
       def acceptable_roles

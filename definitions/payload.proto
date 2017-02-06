@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package AuthenticJwt;
+
+message Payload {
+  enum Role {
+    UNSUBSCRIBED = 0;
+    SUBSCRIBER   = 10;
+    CONTRIBUTOR  = 20;
+    AUTHOR       = 30;
+    EDITOR       = 40;
+    PARTNER      = 70;
+    ADMIN        = 80;
+    INTERNAL     = 90;
+  }
+
+  message Partner {
+    // string iss = 1;
+    // string sub = 2;
+    reserved 1 to 2;
+    string aud = 3;
+    // int32 exp = 4;
+    // int32 nbf = 5;
+    // int32 iat = 6;
+    // string jti = 7;
+    reserved 4 to 9;
+    repeated Role roles = 10;
+  }
+
+  message Account {
+    // string iss = 1;
+    // string sub = 2;
+    reserved 1 to 2;
+    string aud = 3;
+    // int32 exp = 4;
+    // int32 nbf = 5;
+    // int32 iat = 6;
+    // string jti = 7;
+    reserved 4 to 9;
+    repeated Role roles = 10;
+  }
+
+  message External {
+    string iss = 1;
+    // string sub = 2;
+    // string aud = 3;
+    // int32 exp = 4;
+    // int32 nbf = 5;
+    // int32 iat = 6;
+    // string jti = 7;
+    // repeated Role roles = 10;
+    reserved 2 to 10;
+    string access_token = 11;
+    string refresh_token = 12;
+  }
+
+  // string iss = 1;
+  reserved 1;
+  string sub = 2;
+  // string aud = 3;
+  // int32 exp = 4;
+  // int32 nbf = 5;
+  // int32 iat = 6;
+  // string jti = 7;
+  reserved 3 to 9;
+  repeated Role roles = 10;
+  string name = 11;
+  string email = 12;
+  repeated Partner partners = 13;
+  repeated Account accounts = 14;
+  repeated External external = 15;
+}

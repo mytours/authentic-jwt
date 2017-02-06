@@ -21,14 +21,9 @@ module AuthenticJwt
     READ  = ["subscriber"].freeze
     WRITE = ["contributor", "author", "editor", "partner", "admin", "internal"].freeze
 
-    MAPPING = {
-      "subscriber"  => 10,
-      "contributor" => 20,
-      "author"      => 30,
-      "editor"      => 40,
-      "partner"     => 70,
-      "admin"       => 80,
-      "internal"    => 90
-    }.freeze
+    MAPPING = AuthenticJwt::Payload::Role.constants.inject({}) do |memo, const|
+      memo[const.to_s.downcase] = AuthenticJwt::Payload::Role.const_get(const)
+      memo
+    end.freeze
   end
 end
