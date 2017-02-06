@@ -86,7 +86,7 @@ module AuthenticJwt
       end
 
       def account_roles
-        return unless account_payload
+        return [] unless account_payload
         account_payload["roles"].collect(&:downcase)
       end
 
