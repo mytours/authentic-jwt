@@ -17,7 +17,7 @@ module AuthenticJwt
         raise Forbidden, "No access to account"
       end
 
-      roles = account.roles.collect(&:downcase)
+      roles = account.roles.collect(&:to_s).collect(&:downcase)
 
       unless roles.any?
         raise Forbidden, "Account has no roles"
