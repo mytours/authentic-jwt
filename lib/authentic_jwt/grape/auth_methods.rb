@@ -5,7 +5,7 @@ module AuthenticJwt
 
       def jwt_sub
         return unless jwt_payload
-        jwt_payload["sub"]
+        jwt_payload.sub
       end
     end
   end
