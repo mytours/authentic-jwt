@@ -53,7 +53,7 @@ module AuthenticJwt
         end
       end
 
-      # TODO bypass this step
+      # TODO: bypass this step
       json = JSON.dump(raw)
 
       begin

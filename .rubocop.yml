@@ -1,3 +1,9 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - "bin/**/*"
+    - "lib/authentic_jwt/payload_pb.rb"
+    - "vendor/**/*"
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/WordArray:
@@ -32,11 +38,6 @@ Style/IndentHash:
   Enabled: false
 Style/NumericLiterals:
   Enabled: false
-AllCops:
-  TargetRubyVersion: 2.2
-  Exclude:
-    - 'bin/**/*'
-    - 'vendor/**/*'
 Style/ExtraSpacing:
   Enabled: false
 Style/DotPosition:

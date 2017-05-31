@@ -5,10 +5,11 @@ describe AuthenticJwt::Authorizer do
 
   let(:no_accounts_payload) do
     AuthenticJwt::Payload.new({
-      sub:   "1",
-      name:  "Isabelle Kermode",
-      email: "isabellekermode@example.com",
-      roles: [:SUBSCRIBER]
+      sub:      "1",
+      name:     "Isabelle Kermode",
+      email:    "isabellekermode@example.com",
+      username: "isabellekermode",
+      roles:    [:SUBSCRIBER]
     })
   end
 
@@ -17,6 +18,7 @@ describe AuthenticJwt::Authorizer do
       sub:      "2",
       name:     "Aiden Twopeny",
       email:    "aidentwopeny@example.com",
+      username: "aidentwopeny",
       roles:    [:SUBSCRIBER],
       accounts: [
         AuthenticJwt::Payload::Account.new({
@@ -32,6 +34,7 @@ describe AuthenticJwt::Authorizer do
       sub:      "3",
       name:     "Charlotte Cumbrae",
       email:    "charlottecumbrae@example.com",
+      username: "charlottecumbrae",
       roles:    [:SUBSCRIBER],
       accounts: [
         AuthenticJwt::Payload::Account.new({
@@ -47,6 +50,7 @@ describe AuthenticJwt::Authorizer do
       sub:      "4",
       name:     "Jade Uther",
       email:    "jadeuther@example.com",
+      username: "jadeuther",
       roles:    [:SUBSCRIBER],
       accounts: [
         AuthenticJwt::Payload::Account.new({

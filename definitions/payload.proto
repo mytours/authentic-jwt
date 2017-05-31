@@ -62,7 +62,8 @@ message Payload {
   // int32 nbf = 5;
   // int32 iat = 6;
   // string jti = 7;
-  reserved 3 to 9;
+  reserved 3 to 8;
+  string username = 9;
   repeated Role roles = 10;
   string name = 11;
   string email = 12;

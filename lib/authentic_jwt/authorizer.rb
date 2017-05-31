@@ -36,11 +36,11 @@ module AuthenticJwt
 
     def calculate_acceptable_roles(scope:)
       return [] unless scope
-        case scope
-        when "read"  then AuthenticJwt::Role.read
-        when "write" then AuthenticJwt::Role.write
-        else raise ArgumentError
-      end
+      case scope
+      when "read"  then AuthenticJwt::Role.read
+      when "write" then AuthenticJwt::Role.write
+      else raise ArgumentError
+    end
     end
   end
 end
