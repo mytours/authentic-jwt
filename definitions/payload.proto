@@ -38,6 +38,8 @@ message Payload {
     // string jti = 7;
     reserved 4 to 9;
     repeated Role roles = 10;
+    string name = 11;
+    bool auto_approve = 12;
   }
 
   message External {

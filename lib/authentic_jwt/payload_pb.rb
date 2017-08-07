@@ -21,6 +21,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "AuthenticJwt.Payload.Account" do
     optional :aud, :string, 3
     repeated :roles, :enum, 10, "AuthenticJwt.Payload.Role"
+    optional :name, :string, 11
+    optional :auto_approve, :bool, 12
   end
   add_message "AuthenticJwt.Payload.External" do
     optional :iss, :string, 1
