@@ -26,6 +26,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     optional :iss, :string, 1
     optional :access_token, :string, 11
     optional :refresh_token, :string, 12
+    optional :secret, :string, 13
   end
   add_enum "AuthenticJwt.Payload.Role" do
     value :UNSUBSCRIBED, 0
