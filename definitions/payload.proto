@@ -54,6 +54,7 @@ message Payload {
     reserved 2 to 10;
     string access_token = 11;
     string refresh_token = 12;
+    string secret = 13;
   }
 
   // string iss = 1;
