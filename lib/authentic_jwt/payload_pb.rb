@@ -13,6 +13,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     repeated :partners, :message, 13, "AuthenticJwt.Payload.Partner"
     repeated :accounts, :message, 14, "AuthenticJwt.Payload.Account"
     repeated :external, :message, 15, "AuthenticJwt.Payload.External"
+    optional :jwt_token_version, :int32, 16
   end
   add_message "AuthenticJwt.Payload.Partner" do
     optional :aud, :string, 3

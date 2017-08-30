@@ -73,4 +73,5 @@ message Payload {
   repeated Partner partners = 13;
   repeated Account accounts = 14;
   repeated External external = 15;
+  int32 jwt_token_version = 16;
 }
