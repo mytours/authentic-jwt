@@ -48,6 +48,8 @@ module AuthenticJwt
       rescue JWT::DecodeError => error
         if error.message =~ /Signature verification raised/
           raise Unauthorized, "JWT does not match signature"
+        elsif error.message =~ /Signature has expired/
+          raise Expired, "JWT has expired"
         else
           raise Unauthorized, "Bearer token is not a valid JWT"
         end
