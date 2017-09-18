@@ -6,8 +6,6 @@ require 'google/protobuf'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "AuthenticJwt.Payload" do
     optional :sub, :string, 2
-    optional :exp, :int32, 4
-    optional :iat, :int32, 6
     optional :username, :string, 9
     repeated :roles, :enum, 10, "AuthenticJwt.Payload.Role"
     optional :name, :string, 11

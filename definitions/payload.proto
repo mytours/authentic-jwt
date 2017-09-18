@@ -60,14 +60,12 @@ message Payload {
   // string iss = 1;
   reserved 1;
   string sub = 2;
-  reserved 3;
   // string aud = 3;
-  int32 exp = 4;
-  reserved 5;
+  // int32 exp = 4;
   // int32 nbf = 5;
-  int32 iat = 6;
+  // int32 iat = 6;
   // string jti = 7;
-  reserved 7 to 8;
+  reserved 3 to 8;
   string username = 9;
   repeated Role roles = 10;
   string name = 11;
