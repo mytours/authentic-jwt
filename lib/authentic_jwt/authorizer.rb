@@ -39,8 +39,9 @@ module AuthenticJwt
       case scope
       when "read"  then AuthenticJwt::Role.read
       when "write" then AuthenticJwt::Role.write
+      when "admin" then AuthenticJwt::Role.admin
       else raise ArgumentError
-    end
+      end
     end
   end
 end

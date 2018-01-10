@@ -16,10 +16,15 @@ module AuthenticJwt
       WRITE
     end
 
+    def self.admin
+      ADMIN
+    end
+
     protected
 
     READ  = ["subscriber"].freeze
     WRITE = ["contributor", "author", "editor", "partner", "admin", "internal"].freeze
+    ADMIN = ["admin", "internal"].freeze
 
     MAPPING = {
       "subscriber"  => 10,
