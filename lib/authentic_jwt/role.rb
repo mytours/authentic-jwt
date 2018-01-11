@@ -9,11 +9,11 @@ module AuthenticJwt
     end
 
     def self.read
-      READ + WRITE
+      READ + WRITE + ADMIN
     end
 
     def self.write
-      WRITE
+      WRITE + ADMIN
     end
 
     def self.admin
@@ -23,7 +23,7 @@ module AuthenticJwt
     protected
 
     READ  = ["subscriber"].freeze
-    WRITE = ["contributor", "author", "editor", "partner", "admin", "internal"].freeze
+    WRITE = ["contributor", "author", "editor", "partner"].freeze
     ADMIN = ["admin", "internal"].freeze
 
     MAPPING = {
