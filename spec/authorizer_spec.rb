@@ -61,6 +61,22 @@ describe AuthenticJwt::Authorizer do
     })
   end
 
+  let(:editor_payload) do
+    AuthenticJwt::Payload.new({
+      sub:      "5",
+      name:     "Frodo Baggins",
+      email:    "frodo@example.com",
+      username: "frodo",
+      roles:    [:SUBSCRIBER],
+      accounts: [
+        AuthenticJwt::Payload::Account.new({
+          aud:   ENV["AUTHENTIC_AUTH_ACCOUNT_ID"],
+          roles: [:EDITOR],
+        })
+      ]
+    })
+  end
+
   it "returns forbidden if the payload doesn't have access to the account" do
     expect { authorizer.call(payload: no_accounts_payload, scope: "write") }.to raise_error(AuthenticJwt::Forbidden, "No access to account")
   end
@@ -71,6 +87,10 @@ describe AuthenticJwt::Authorizer do
 
   it "returns forbidden if the payload account doesn't have sufficient access" do
     expect { authorizer.call(payload: insufficient_payload, scope: "write") }.to raise_error(AuthenticJwt::Forbidden, "Account role is too low")
+  end
+
+  it "returns forbidden if the payload account doesn't have admin access" do
+    expect { authorizer.call(payload: editor_payload, scope: "admin") }.to raise_error(AuthenticJwt::Forbidden, "Account role is too low")
   end
 
   it "returns true if the payload is ok" do
