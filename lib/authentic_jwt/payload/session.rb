@@ -1,6 +1,6 @@
 module AuthenticJwt
   module Payload
-    class Session
+    class Session < Base
       attr_accessor \
         :sub,
         :exp,
@@ -15,17 +15,17 @@ module AuthenticJwt
         :jwt_token_version
 
       def initialize(attributes)
-        self.sub = attributes[:sub]
-        self.exp = attributes[:exp]
-        self.iat = attributes[:iat]
-        self.username = attributes[:username]
-        self.roles = (attributes[:roles] || [])
-        self.name = attributes[:name]
-        self.email = attributes[:email]
-        self.accounts = (attributes[:accounts] || [])
-        self.partners = (attributes[:partners] || [])
-        self.external = (attributes[:external] || [])
-        self.jwt_token_version = attributes[:jwt_token_version]
+        self.sub = get_string(attributes, :sub)
+        self.exp = get_integer(attributes, :exp)
+        self.iat = get_integer(attributes, :iat)
+        self.username = get_string(attributes, :username)
+        self.roles = get_array(attributes, :roles)
+        self.name = get_string(attributes, :name)
+        self.email = get_string(attributes, :email)
+        self.accounts = get_array(attributes, :accounts)
+        self.partners = get_array(attributes, :partners)
+        self.external = get_array(attributes, :external)
+        self.jwt_token_version = get_integer(attributes, :jwt_token_version)
       end
 
       def self.new_from_raw(raw_attributes)

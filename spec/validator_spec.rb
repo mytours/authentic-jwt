@@ -18,17 +18,17 @@ describe AuthenticJwt::Validator do
 
     expect(payload).to be_a_kind_of(AuthenticJwt::Payload::Session)
     expect(payload.as_json).to eq({
-      "accounts" => [{"aud"=>"1776", "roles"=>["ADMIN"], "name"=>nil, "auto_approve"=>nil}, {"aud"=>"1", "roles"=>["ADMIN"], "name"=>nil, "auto_approve"=>nil}],
+      "accounts" => [{"aud"=>"1776", "roles"=>["ADMIN"], "name"=>"", "auto_approve"=>false}, {"aud"=>"1", "roles"=>["ADMIN"], "name"=>"", "auto_approve"=>false}],
       "email" => "mytours@kotiri.com",
-      "exp" => nil,
-      "external" => [{"iss"=>"google", "access_token"=>"ya29.GlvqA8Wkq73ErbPl_I5WeTgvr9nMPDf9Y9bG3iyZWiB8vuUJFfrBoU6xWJKM__attd9CpWuBGXCPlEtgQX-uOdt6RXa0Y57CTQA6WObLt1Ljc1wZCx3GOaPz8k-e", "refresh_token"=>"1/EJKCjLk_fs76jgrKQBUEC0gFPuOxkR7ni7u_nQqg7vk", "secret"=>nil}],
-      "iat" => nil,
-      "jwt_token_version" => nil,
+      "exp" => 0,
+      "external" => [{"iss"=>"google", "access_token"=>"ya29.GlvqA8Wkq73ErbPl_I5WeTgvr9nMPDf9Y9bG3iyZWiB8vuUJFfrBoU6xWJKM__attd9CpWuBGXCPlEtgQX-uOdt6RXa0Y57CTQA6WObLt1Ljc1wZCx3GOaPz8k-e", "refresh_token"=>"1/EJKCjLk_fs76jgrKQBUEC0gFPuOxkR7ni7u_nQqg7vk", "secret"=>""}],
+      "iat" => 0,
+      "jwt_token_version" => 0,
       "name" => "Steve Hoeksema",
       "partners" => [{"aud"=>"mytours", "roles"=>["ADMIN"]}],
       "roles" => ["ADMIN"],
       "sub" => "1907",
-      "username" => nil
+      "username" => ""
     })
   end
 

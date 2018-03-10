@@ -1,13 +1,13 @@
 module AuthenticJwt
   module Payload
-    class Partner
+    class Partner < Base
       attr_accessor \
         :aud,
         :roles
 
       def initialize(attributes)
-        self.aud = attributes[:aud]
-        self.roles = (attributes[:roles] || [])
+        self.aud = get_string(attributes, :aud)
+        self.roles = get_array(attributes, :roles)
       end
 
       def self.new_from_raw(raw_attributes)

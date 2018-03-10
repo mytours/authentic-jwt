@@ -1,6 +1,6 @@
 module AuthenticJwt
   module Payload
-    class Account
+    class Account < Base
       attr_accessor \
         :aud,
         :roles,
@@ -8,10 +8,10 @@ module AuthenticJwt
         :auto_approve
 
       def initialize(attributes)
-        self.aud = attributes[:aud]
-        self.roles = (attributes[:roles] || [])
-        self.name = attributes[:name]
-        self.auto_approve = attributes[:auto_approve]
+        self.aud = get_string(attributes, :aud)
+        self.roles = get_array(attributes, :roles)
+        self.name = get_string(attributes, :name)
+        self.auto_approve = get_bool(attributes, :auto_approve)
       end
 
       def self.new_from_raw(raw_attributes)

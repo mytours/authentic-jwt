@@ -1,3 +1,4 @@
+require 'authentic_jwt/payload/base'
 require 'authentic_jwt/payload/account'
 require 'authentic_jwt/payload/external'
 require 'authentic_jwt/payload/partner'
