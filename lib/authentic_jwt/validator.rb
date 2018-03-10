@@ -43,7 +43,7 @@ module AuthenticJwt
     end
 
     def extract_payload(bearer_token:)
-      raw, header = begin
+      raw_payload, _ = begin
         JWT.decode(bearer_token, public_key, true, algorithm: ALGORITHM)
       rescue JWT::DecodeError => error
         if error.message =~ /Signature verification raised/
@@ -55,14 +55,7 @@ module AuthenticJwt
         end
       end
 
-      # TODO: bypass this step
-      json = JSON.dump(raw)
-
-      begin
-        Payload.decode_json(json)
-      rescue Google::Protobuf::ParseError
-        raise Unauthorized, "JWT is not in the correct format"
-      end
+      Payload.new_from_raw(raw_payload)
     end
   end
 end

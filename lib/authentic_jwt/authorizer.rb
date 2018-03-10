@@ -11,7 +11,7 @@ module AuthenticJwt
     def call(payload:, scope: nil)
       return unless account_id
 
-      account = payload.accounts.detect { |account| account.aud == account_id }
+      account = payload.accounts.detect{|a| a.aud == account_id }
 
       unless account
         raise Forbidden, "No access to account"
