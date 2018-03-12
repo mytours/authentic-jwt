@@ -16,7 +16,20 @@ describe AuthenticJwt::Validator do
   it "returns a json payload" do
     payload = validator.call(header: "Bearer #{valid_jwt}")
 
-    expect(payload).to be_a_kind_of(AuthenticJwt::Payload)
+    expect(payload).to be_a_kind_of(AuthenticJwt::Payload::Session)
+    expect(payload.as_json).to eq({
+      "accounts" => [{"aud"=>"1776", "roles"=>["ADMIN"], "name"=>"", "auto_approve"=>false}, {"aud"=>"1", "roles"=>["ADMIN"], "name"=>"", "auto_approve"=>false}],
+      "email" => "mytours@kotiri.com",
+      "exp" => 0,
+      "external" => [{"iss"=>"google", "access_token"=>"ya29.GlvqA8Wkq73ErbPl_I5WeTgvr9nMPDf9Y9bG3iyZWiB8vuUJFfrBoU6xWJKM__attd9CpWuBGXCPlEtgQX-uOdt6RXa0Y57CTQA6WObLt1Ljc1wZCx3GOaPz8k-e", "refresh_token"=>"1/EJKCjLk_fs76jgrKQBUEC0gFPuOxkR7ni7u_nQqg7vk", "secret"=>""}],
+      "iat" => 0,
+      "jwt_token_version" => 0,
+      "name" => "Steve Hoeksema",
+      "partners" => [{"aud"=>"mytours", "roles"=>["ADMIN"]}],
+      "roles" => ["ADMIN"],
+      "sub" => "1907",
+      "username" => ""
+    })
   end
 
   it "fails when called without a header" do
@@ -36,7 +49,7 @@ describe AuthenticJwt::Validator do
     expect { validator.call(header: "Bearer #{wrong_sig_jwt}") }.to raise_error(AuthenticJwt::Unauthorized, "JWT does not match signature")
   end
 
-  it "fails when called with a signed jwt with the wrong format" do
-    expect { validator.call(header: "Bearer #{wrong_format_jwt}") }.to raise_error(AuthenticJwt::Unauthorized, "JWT is not in the correct format")
+  it "does not fail when called with a signed jwt with unknown attributes" do
+    validator.call(header: "Bearer #{wrong_format_jwt}")
   end
 end

@@ -19,9 +19,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "google-protobuf"
   spec.add_dependency "jwt"
   spec.add_dependency "multi_json"
+  spec.add_dependency "activesupport"
 
   spec.add_development_dependency "awesome_print"
   spec.add_development_dependency "bundler"
