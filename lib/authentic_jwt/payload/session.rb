@@ -12,7 +12,8 @@ module AuthenticJwt
         :accounts,
         :partners,
         :external,
-        :jwt_token_version
+        :jwt_token_version,
+        :signup_provider
 
       def initialize(attributes)
         self.sub = get_string(attributes, :sub)
@@ -26,6 +27,7 @@ module AuthenticJwt
         self.partners = get_array(attributes, :partners)
         self.external = get_array(attributes, :external)
         self.jwt_token_version = get_integer(attributes, :jwt_token_version)
+        self.signup_provider = get_string(attributes, :signup_provider)
       end
 
       def self.new_from_raw(raw_attributes)
