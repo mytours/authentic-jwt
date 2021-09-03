@@ -5,6 +5,7 @@ module AuthenticJwt
         :aud,
         :roles,
         :name,
+        :source,
         :auto_approve,
         :child_accounts
 
@@ -12,6 +13,7 @@ module AuthenticJwt
         self.aud = get_string(attributes, :aud)
         self.roles = get_array(attributes, :roles)
         self.name = get_string(attributes, :name)
+        self.source = get_string(attributes, :source)
         self.auto_approve = get_bool(attributes, :auto_approve)
         self.child_accounts = get_array(attributes, :child_accounts)
       end

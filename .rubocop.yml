@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
   Exclude:
     - "bin/**/*"
     - "lib/authentic_jwt/payload_pb.rb"
@@ -8,23 +8,25 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/WordArray:
   Enabled: false
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
   Enabled: false
 Style/TrailingCommaInArguments:
   Enabled: false
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Enabled: false
-Style/EmptyLinesAroundModuleBody:
+Layout/EmptyLinesAroundModuleBody:
   Enabled: false
-Style/EmptyLinesAroundBlockBody:
+Layout/EmptyLinesAroundBlockBody:
   Enabled: false
-Style/CaseIndentation:
+Layout/CaseIndentation:
   Enabled: false
 Style/Documentation:
   Enabled: false
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
 Style/RegexpLiteral:
   Enabled: false
@@ -32,19 +34,13 @@ Style/IfUnlessModifier:
   Enabled: false
 Style/TrivialAccessors:
   AllowPredicates: true
-Style/BracesAroundHashParameters:
-  Enabled: false
-Style/IndentHash:
-  Enabled: false
 Style/NumericLiterals:
   Enabled: false
-Style/ExtraSpacing:
+Layout/ExtraSpacing:
   Enabled: false
-Style/DotPosition:
+Layout/DotPosition:
   Enabled: false
-Style/SpaceInsideBlockBraces:
+Layout/SpaceInsideBlockBraces:
   Enabled: false
-Style/SpaceInsideHashLiteralBraces:
-  Enabled: false
-Style/AlignHash:
+Layout/SpaceInsideHashLiteralBraces:
   Enabled: false

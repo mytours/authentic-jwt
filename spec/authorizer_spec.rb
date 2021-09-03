@@ -40,6 +40,7 @@ describe AuthenticJwt::Authorizer do
         AuthenticJwt::Payload::Account.new({
           aud:   ENV["AUTHENTIC_AUTH_ACCOUNT_ID"],
           roles: [:SUBSCRIBER],
+          source: "stqry"
         })
       ]
     })
@@ -56,6 +57,7 @@ describe AuthenticJwt::Authorizer do
         AuthenticJwt::Payload::Account.new({
           aud:   ENV["AUTHENTIC_AUTH_ACCOUNT_ID"],
           roles: [:ADMIN],
+          source: "stqry"
         })
       ]
     })
@@ -72,6 +74,7 @@ describe AuthenticJwt::Authorizer do
         AuthenticJwt::Payload::Account.new({
           aud:   ENV["AUTHENTIC_AUTH_ACCOUNT_ID"],
           roles: [:EDITOR],
+          source: "stqry"
         })
       ]
     })
