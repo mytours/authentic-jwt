@@ -1,46 +1,41 @@
-AllCops:
-  TargetRubyVersion: 2.6
-  Exclude:
-    - "bin/**/*"
-    - "lib/authentic_jwt/payload_pb.rb"
-    - "vendor/**/*"
 Style/StringLiterals:
   EnforcedStyle: double_quotes
-Style/WordArray:
+Lint/Void:
+  Enabled: false
+Metrics/BlockLength:
   Enabled: false
 Layout/LineLength:
   Enabled: false
-Style/TrailingCommaInArrayLiteral:
+Style/WordArray:
   Enabled: false
-Style/TrailingCommaInHashLiteral:
+Style/NumericLiterals:
   Enabled: false
-Style/TrailingCommaInArguments:
+Style/SymbolArray:
   Enabled: false
-Layout/EmptyLinesAroundClassBody:
-  Enabled: false
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: false
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: false
-Layout/CaseIndentation:
+Metrics/ClassLength:
   Enabled: false
 Style/Documentation:
   Enabled: false
-Layout/MultilineOperationIndentation:
-  EnforcedStyle: indented
-Style/RegexpLiteral:
+Style/AndOr:
   Enabled: false
-Style/IfUnlessModifier:
+Metrics/AbcSize:
   Enabled: false
-Style/TrivialAccessors:
-  AllowPredicates: true
-Style/NumericLiterals:
+Style/ClassAndModuleChildren:
   Enabled: false
-Layout/ExtraSpacing:
+Metrics/CyclomaticComplexity:
   Enabled: false
-Layout/DotPosition:
+Metrics/MethodLength:
   Enabled: false
-Layout/SpaceInsideBlockBraces:
+Metrics/PerceivedComplexity:
   Enabled: false
-Layout/SpaceInsideHashLiteralBraces:
+Lint/UnusedMethodArgument:
+  Enabled: false 
+Style/PreferredHashMethods:
+  Enabled: false 
+Style/FormatStringToken:
   Enabled: false
+AllCops:
+  Exclude:
+    - 'bin/{rails,rake}'
+  NewCops: enable
+  SuggestExtensions: false

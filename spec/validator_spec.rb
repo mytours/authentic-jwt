@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 describe AuthenticJwt::Validator do
@@ -15,25 +17,26 @@ describe AuthenticJwt::Validator do
 
   it "returns a json payload" do
     payload = validator.call(header: "Bearer #{valid_jwt}")
-
+byebug
     expect(payload).to be_a_kind_of(AuthenticJwt::Payload::Session)
     expect(payload.as_json).to eq({
-      "accounts" => [
-        {"aud"=>"1776", "roles"=>["ADMIN"], "name"=>"", "auto_approve"=>false, "source" => "", "child_accounts"=>[]}, 
-        {"aud"=>"1", "roles"=>["ADMIN"], "name"=>"", "auto_approve"=>false, "source" => "", "child_accounts"=>[]}
-      ],
-      "email" => "mytours@kotiri.com",
-      "exp" => 0,
-      "external" => [{"iss"=>"google", "access_token"=>"ya29.GlvqA8Wkq73ErbPl_I5WeTgvr9nMPDf9Y9bG3iyZWiB8vuUJFfrBoU6xWJKM__attd9CpWuBGXCPlEtgQX-uOdt6RXa0Y57CTQA6WObLt1Ljc1wZCx3GOaPz8k-e", "refresh_token"=>"1/EJKCjLk_fs76jgrKQBUEC0gFPuOxkR7ni7u_nQqg7vk", "secret"=>""}],
-      "iat" => 0,
-      "jwt_token_version" => 0,
-      "name" => "Steve Hoeksema",
-      "partners" => [{"aud"=>"mytours", "roles"=>["ADMIN"]}],
-      "roles" => ["ADMIN"],
-      "signup_provider" => "",
-      "sub" => "1907",
-      "username" => ""
-    })
+                                    "accounts" => [
+                                      { "aud" => "1776", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [] },
+                                      { "aud" => "1", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [] }
+                                    ],
+                                    "email" => "mytours@kotiri.com",
+                                    "exp" => 0,
+                                    "external" => [{ "iss" => "google", "access_token" => "ya29.GlvqA8Wkq73ErbPl_I5WeTgvr9nMPDf9Y9bG3iyZWiB8vuUJFfrBoU6xWJKM__attd9CpWuBGXCPlEtgQX-uOdt6RXa0Y57CTQA6WObLt1Ljc1wZCx3GOaPz8k-e", "refresh_token" => "1/EJKCjLk_fs76jgrKQBUEC0gFPuOxkR7ni7u_nQqg7vk", "secret" => "" }],
+                                    "iat" => 0,
+                                    "jwt_token_version" => 0,
+                                    "name" => "Steve Hoeksema",
+                                    "partners" => [{ "aud" => "mytours", "roles" => ["ADMIN"] }],
+                                    "roles" => ["ADMIN"],
+                                    "signup_provider" => "",
+                                    "sub" => "1907",
+                                    "username" => "",
+                                    "interface_language" => ""
+                                  })
   end
 
   it "fails when called without a header" do
