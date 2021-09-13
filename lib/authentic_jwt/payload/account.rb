@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthenticJwt
   module Payload
     class Account < Base
@@ -20,9 +22,9 @@ module AuthenticJwt
 
       def self.new_from_raw(raw_attributes)
         raw_attributes.symbolize_keys!
-        raw_attributes[:roles] = (raw_attributes[:roles] || []).map{|r| r.upcase.to_sym }
-        raw_attributes[:child_accounts] = (raw_attributes[:child_accounts] || []).map{|a| Account.new_from_raw(a) }
-        self.new(raw_attributes)
+        raw_attributes[:roles] = (raw_attributes[:roles] || []).map { |r| r.upcase.to_sym }
+        raw_attributes[:child_accounts] = (raw_attributes[:child_accounts] || []).map { |a| Account.new_from_raw(a) }
+        new(raw_attributes)
       end
     end
   end

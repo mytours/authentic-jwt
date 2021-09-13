@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 module AuthenticJwt
   class Authorizer
     def initialize(account_id: ENV["AUTHENTIC_AUTH_ACCOUNT_ID"])
-      unless account_id.to_s.empty?
-        @account_id = account_id.to_s
-      end
+      @account_id = account_id.to_s unless account_id.to_s.empty?
     end
 
     attr_reader :account_id
@@ -11,23 +11,17 @@ module AuthenticJwt
     def call(payload:, scope: nil)
       return unless account_id
 
-      account = payload.accounts.detect{|a| a.aud == account_id }
+      account = payload.accounts.detect { |a| a.aud == account_id }
 
-      unless account
-        raise Forbidden, "No access to account"
-      end
+      raise Forbidden, "No access to account" unless account
 
       roles = account.roles.collect(&:to_s).collect(&:downcase)
 
-      unless roles.any?
-        raise Forbidden, "Account has no roles"
-      end
+      raise Forbidden, "Account has no roles" unless roles.any?
 
       acceptable_roles = calculate_acceptable_roles(scope: scope)
 
-      unless (acceptable_roles & roles).any?
-        raise Forbidden, "Account role is too low"
-      end
+      raise Forbidden, "Account role is too low" unless (acceptable_roles & roles).any?
 
       true
     end
@@ -36,6 +30,7 @@ module AuthenticJwt
 
     def calculate_acceptable_roles(scope:)
       return [] unless scope
+
       case scope
       when "read"  then AuthenticJwt::Role.read
       when "write" then AuthenticJwt::Role.write

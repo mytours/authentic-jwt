@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "authentic_jwt/grape/extension"
 require "authentic_jwt/grape/auth_methods"
 
@@ -33,6 +35,7 @@ module AuthenticJwt
 
       def scope
         return unless route_setting
+
         route_setting.fetch(:scope, nil)
       end
     end

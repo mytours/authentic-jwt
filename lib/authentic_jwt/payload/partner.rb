@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthenticJwt
   module Payload
     class Partner < Base
@@ -12,8 +14,8 @@ module AuthenticJwt
 
       def self.new_from_raw(raw_attributes)
         raw_attributes.symbolize_keys!
-        raw_attributes[:roles] = (raw_attributes[:roles] || []).map{|r| r.upcase.to_sym }
-        self.new(raw_attributes)
+        raw_attributes[:roles] = (raw_attributes[:roles] || []).map { |r| r.upcase.to_sym }
+        new(raw_attributes)
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthenticJwt
   module Payload
     class External < Base
@@ -16,7 +18,7 @@ module AuthenticJwt
 
       def self.new_from_raw(raw_attributes)
         raw_attributes.symbolize_keys!
-        self.new(raw_attributes)
+        new(raw_attributes)
       end
     end
   end

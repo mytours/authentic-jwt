@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthenticJwt
   module Grape
     module AuthMethods
@@ -5,6 +7,7 @@ module AuthenticJwt
 
       def jwt_sub
         return unless jwt_payload
+
         jwt_payload.sub
       end
     end

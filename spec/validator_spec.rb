@@ -17,7 +17,7 @@ describe AuthenticJwt::Validator do
 
   it "returns a json payload" do
     payload = validator.call(header: "Bearer #{valid_jwt}")
-byebug
+
     expect(payload).to be_a_kind_of(AuthenticJwt::Payload::Session)
     expect(payload.as_json).to eq({
                                     "accounts" => [

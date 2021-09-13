@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthenticJwt
   module Payload
     class Base

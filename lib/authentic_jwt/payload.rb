@@ -1,8 +1,10 @@
-require 'authentic_jwt/payload/base'
-require 'authentic_jwt/payload/account'
-require 'authentic_jwt/payload/external'
-require 'authentic_jwt/payload/partner'
-require 'authentic_jwt/payload/session'
+# frozen_string_literal: true
+
+require "authentic_jwt/payload/base"
+require "authentic_jwt/payload/account"
+require "authentic_jwt/payload/external"
+require "authentic_jwt/payload/partner"
+require "authentic_jwt/payload/session"
 
 module AuthenticJwt
   module Payload

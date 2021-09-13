@@ -18,7 +18,6 @@ module AuthenticJwt
         :jwt_token_version,
         :signup_provider
 
-      # rubocop:disable Lint/MissingSuper
       def initialize(attributes)
         self.sub = get_string(attributes, :sub)
         self.exp = get_integer(attributes, :exp)
@@ -34,7 +33,6 @@ module AuthenticJwt
         self.jwt_token_version = get_integer(attributes, :jwt_token_version)
         self.signup_provider = get_string(attributes, :signup_provider)
       end
-      # rubocop:enable Lint/MissingSuper
 
       def self.new_from_raw(raw_attributes)
         raw_attributes.symbolize_keys!

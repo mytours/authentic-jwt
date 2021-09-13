@@ -34,6 +34,10 @@ Style/PreferredHashMethods:
   Enabled: false 
 Style/FormatStringToken:
   Enabled: false
+Lint/MissingSuper:
+  Enabled: false
+Naming/FileName:
+  Enabled: false
 AllCops:
   Exclude:
     - 'bin/{rails,rake}'
