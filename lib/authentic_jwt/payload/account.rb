@@ -9,7 +9,8 @@ module AuthenticJwt
         :name,
         :source,
         :auto_approve,
-        :child_accounts
+        :child_accounts,
+        :parent_account_id
 
       def initialize(attributes)
         self.aud = get_string(attributes, :aud)
@@ -18,6 +19,7 @@ module AuthenticJwt
         self.source = get_string(attributes, :source)
         self.auto_approve = get_bool(attributes, :auto_approve)
         self.child_accounts = get_array(attributes, :child_accounts)
+        self.parent_account_id = attributes[:parent_account_id]
       end
 
       def self.new_from_raw(raw_attributes)
