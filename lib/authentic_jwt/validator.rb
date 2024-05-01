@@ -45,7 +45,7 @@ module AuthenticJwt
         JWT.decode(bearer_token, public_key, true, algorithm: ALGORITHM)
       rescue JWT::DecodeError => e
         case e.message
-        when /Signature verification raised/
+        when /Signature verification raised/, /Signature verification failed/
           raise Unauthorized, "JWT does not match signature"
         when /Signature has expired/
           raise Expired, "JWT has expired"

@@ -5,7 +5,7 @@ require "spec_helper"
 describe AuthenticJwt::Validator do
   subject(:validator) { AuthenticJwt::Validator.new }
 
-  let(:valid_jwt) { "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOTA3Iiwicm9sZXMiOlsiQURNSU4iXSwibmFtZSI6IlN0ZXZlIEhvZWtzZW1hIiwiZW1haWwiOiJteXRvdXJzQGtvdGlyaS5jb20iLCJwYXJ0bmVycyI6W3siYXVkIjoibXl0b3VycyIsInJvbGVzIjpbIkFETUlOIl19XSwiYWNjb3VudHMiOlt7ImF1ZCI6IjE3NzYiLCJyb2xlcyI6WyJBRE1JTiJdfSx7ImF1ZCI6IjEiLCJyb2xlcyI6WyJBRE1JTiJdfV0sImV4dGVybmFsIjpbeyJpc3MiOiJnb29nbGUiLCJhY2Nlc3NfdG9rZW4iOiJ5YTI5LkdsdnFBOFdrcTczRXJiUGxfSTVXZVRndnI5bk1QRGY5WTliRzNpeVpXaUI4dnVVSkZmckJvVTZ4V0pLTV9fYXR0ZDlDcFd1QkdYQ1BsRXRnUVgtdU9kdDZSWGEwWTU3Q1RRQTZXT2JMdDFMamMxd1pDeDNHT2FQejhrLWUiLCJyZWZyZXNoX3Rva2VuIjoiMS9FSktDakxrX2ZzNzZqZ3JLUUJVRUMwZ0ZQdU94a1I3bmk3dV9uUXFnN3ZrIn1dfQ.A53CAmCIhzVGfzHkbV5VjPQEyf-apCItSYDg8buS5oz-knII9ekJL10ipKZa58OuI5hNOIJoUpLXPI0tKmS-NtJxwIEowPfrONGmCeTH-Lj0pawJ4Lk1FlIf9POqrsrPhxEI2dws_MGOea6tUuMgAyI1Am_Tdh1CzX-5IrVkRGVSJ1ZtlZkNsl4diizoE6QH0nbWU7rQTZC3ZE-8yr7855LoqMFQpO5AsMadw-u1SuckdYYV2l2aRiCoLc8j9zS-Tcoo6a3GigEQbXhK0oytBbIQfcuf1dZbBxV6Z-s-UB5azIH0ohU93XxvQIXvRv53GTTrxUo3NMNUcAIYGoRYXigx6tLSCfPW79YCfbM9pwyfwGytEyCPCkdKf2-Qlj3xcdf_AmDxBxle5hUNAnw-e-SqJNTx3lIuRugsXReNybpxItYX8Tynr-7Y6T5W8DnSaIlU8MevNRfhk7T1iSLh4fMfkAHNl8_5jF1xzP7eMo44VOVpHlshTmzHDdfqKRx7ZB6J0FIbX67pqsKn4Cf-cICajBbOtN1dxEX9ZUWLOTAlSTqQpAGPDTkPNi9GmnsX2ronJC1NJV2IR6Jk50JEFb6IISATYEMcPQgGVJMcK4J4n9hOpw48GMC_Ccv6Abt5H4XfAARBb1t7up8BAzQs1fiEM00Wi2lJL2cVyCQaLIs" }
+  let(:valid_jwt) { "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOTA3Iiwicm9sZXMiOlsiQURNSU4iXSwibmFtZSI6IlN0ZXZlIEhvZWtzZW1hIiwiZW1haWwiOiJteXRvdXJzQGtvdGlyaS5jb20iLCJyZWdpb24iOiJjYSIsInBhcnRuZXJzIjpbeyJhdWQiOiJteXRvdXJzIiwicm9sZXMiOlsiQURNSU4iXX1dLCJhY2NvdW50cyI6W3siYXVkIjoiMTc3NiIsInJlZ2lvbiI6ImNhIiwicm9sZXMiOlsiQURNSU4iXX0seyJhdWQiOiIxIiwicmVnaW9uIjoiY2EiLCJyb2xlcyI6WyJBRE1JTiJdfV0sImV4dGVybmFsIjpbeyJpc3MiOiJnb29nbGUiLCJhY2Nlc3NfdG9rZW4iOiJ5YTI5LkdsdnFBOFdrcTczRXJiUGxfSTVXZVRndnI5bk1QRGY5WTliRzNpeVpXaUI4dnVVSkZmckJvVTZ4V0pLTV9fYXR0ZDlDcFd1QkdYQ1BsRXRnUVgtdU9kdDZSWGEwWTU3Q1RRQTZXT2JMdDFMamMxd1pDeDNHT2FQejhrLWUiLCJyZWZyZXNoX3Rva2VuIjoiMS9FSktDakxrX2ZzNzZqZ3JLUUJVRUMwZ0ZQdU94a1I3bmk3dV9uUXFnN3ZrIn1dfQ.lN2xeg8SDSBPN2Ktu_psQFm_IcCTguNrGmVd3gvPdoGdWqooApC2tVv4XTLxN5dLoW4X2rfBXJtrf5cBtl7OvTF1RltcLzvv3FL3kkf946NbM91EiyrvZvVhFertqWo7hcSEcIgF0e2DH4vPOjUCiijblCU_SIwxs62GwAc5J8CUaC5iclQv1MKfnbRLuLujOcauA-zrWNiuwJdctj7LmlzIQpFHHjsmi02dY3elmxq1oMm6yYukw_uZ92ojmTrvW8LoXiBmfuw_aUXSWCoU0uKHvYTsXt75SbPAQFdqX49k4LA1dGAyTwkEsejOqm5z7MbAJDxLTlNGvSeRyQYzAFTdtvMosbyLgAHHQNpb42EB2en4gVR7OgSFKuJ44ydZXIPbkv9wjcPwAjz7e4F3nFMOUFZ5wfveBZN7EakeSFNrU21-zhCrDSp99dS_pm0YX524TnjsTas0sAKdlq6Fzu9vTeIkUGvOWVUcI_o1F7fp76S63mc-uwqISulrD_TK3kGKYM5hSY7zWQ2p06b9FOqN97G8znG5VMasnVFUF4HH4Z_kybkwCG66sFGWhW6pTymgS3muVhcioy3yDkPC_CiRgl67dg7A6E5DNM2fPWtIV73eslWTTM6iEVRW_5HkM08k0j42A06AtT6VbpQiOJjEuu-_A7KXgKG32VKTQqk" }
 
   let(:wrong_sig_jwt) { "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOTA3Iiwicm9sZXMiOlsiQURNSU4iXSwibmFtZSI6IlN0ZXZlIEhvZWtzZW1hIiwiZW1haWwiOiJteXRvdXJzQGtvdGlyaS5jb20iLCJwYXJ0bmVycyI6W3siYXVkIjoibXl0b3VycyIsInJvbGVzIjpbIkFETUlOIl19XSwiYWNjb3VudHMiOlt7ImF1ZCI6IjE3NzYiLCJyb2xlcyI6WyJBRE1JTiJdfV0sImV4dGVybmFsIjpbeyJpc3MiOiJnb29nbGUiLCJhY2Nlc3NfdG9rZW4iOiJ5YTI5LkdsdnFBOC1CeFhxU2tUamctYk10amx5Tm1xNU1kaUFZcDBkM3JqaHhyNm9fbFZOYzcwc1cwNWFzZlBfbDUtbXFJRGdvUWR3QnJmbzlhQVpad3Z2Qkd3NUZvajV2bnZnT1g5bDB2RzFZQy1jajBwVVUzRWFaZ1YtR0FQdzciLCJyZWZyZXNoX3Rva2VuIjoiMS94ekNTTkV1bWItN0tPM1FNOXl1bUdXX2ZHemUyR1doMlRPdk9EMWNYLUhnIn1dfQ.f0JuGQ3KPTRXxwCcDiUxBUWCH198E50ScdEGilzojqSpcEV8wyUTtsVnYPKJouR2iT0fSEMCuGFNcNRjbLr5T7lalEBisMijSgc6Iu2Db0LjkFe5fyvEQioqMUfPB-lkmoRfY9E2Hvh5K8Itvj0p_xQKQ6VLjne39wFpBbz33m7Yc0vDfwIFaOPgHkETwvajYMnlI0KJAGxuyPnv_U9joaxL_Cy5NwbG--zxwIqyGJ94NffynEk0Ohs8ZxC5tW7HgfFllYEv21dmCsLnfCB0ALnXBRXI_LQDzZPbH9LwNxmZwOKbBndp_s0UwJSGoFsf79Q9uXXxxBlVD6-SEis_a57LkD7hr_wOEKdBCik8jSwcTTXJ8VSNQK9QV2ToNLbfqKNgcpJo1h0qhQVASLolwxLPj6aaAGh27tgCIOcTeGG-tsgrkHi7JlUO_3XgJq_ciqu_wMqNoobF9m_wIJ79lh3FytO6CKzEocs521JeSChLA8_fCl8-oBf1yK_dy9OjjNKMZ1AO6A_5qn5Z2hFeIk0zAGMO0o42lhHuV5KDw0euaurMEGu51ZFGbqYXdMmOW3_m_t7oEF-UHvmzj9J1BWinEtKwT5AWa3X9KYi_2DxdOu2JoA9uEpyAAxGSFBX-thWI36CfwuqNdDljeNJciVcxcCenC8gFNadPFo-UNQU" }
 
@@ -21,8 +21,8 @@ describe AuthenticJwt::Validator do
     expect(payload).to be_a_kind_of(AuthenticJwt::Payload::Session)
     expect(payload.as_json).to eq({
                                     "accounts" => [
-                                      { "aud" => "1776", "region" => "", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [], "parent_account_id" => nil },
-                                      { "aud" => "1", "region" => "", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [], "parent_account_id" => nil }
+                                      { "aud" => "1776", "region" => "ca", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [], "parent_account_id" => nil },
+                                      { "aud" => "1", "region" => "ca", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [], "parent_account_id" => nil }
                                     ],
                                     "email" => "mytours@kotiri.com",
                                     "exp" => 0,
@@ -36,7 +36,7 @@ describe AuthenticJwt::Validator do
                                     "sub" => "1907",
                                     "username" => "",
                                     "interface_language" => "",
-                                    "region" => ""
+                                    "region" => "ca"
                                   })
   end
 
