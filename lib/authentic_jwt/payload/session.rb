@@ -16,7 +16,8 @@ module AuthenticJwt
         :partners,
         :external,
         :jwt_token_version,
-        :signup_provider
+        :signup_provider,
+        :region
 
       def initialize(attributes)
         self.sub = get_string(attributes, :sub)
@@ -26,6 +27,7 @@ module AuthenticJwt
         self.roles = get_array(attributes, :roles)
         self.name = get_string(attributes, :name)
         self.email = get_string(attributes, :email)
+        self.region = get_string(attributes, :region)
         self.interface_language = get_string(attributes, :interface_language)
         self.accounts = get_array(attributes, :accounts)
         self.partners = get_array(attributes, :partners)

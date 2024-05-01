@@ -21,8 +21,8 @@ describe AuthenticJwt::Validator do
     expect(payload).to be_a_kind_of(AuthenticJwt::Payload::Session)
     expect(payload.as_json).to eq({
                                     "accounts" => [
-                                      { "aud" => "1776", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [], "parent_account_id" => nil },
-                                      { "aud" => "1", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [], "parent_account_id" => nil }
+                                      { "aud" => "1776", "region" => "", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [], "parent_account_id" => nil },
+                                      { "aud" => "1", "region" => "", "roles" => ["ADMIN"], "name" => "", "auto_approve" => false, "source" => "", "child_accounts" => [], "parent_account_id" => nil }
                                     ],
                                     "email" => "mytours@kotiri.com",
                                     "exp" => 0,
@@ -35,7 +35,8 @@ describe AuthenticJwt::Validator do
                                     "signup_provider" => "",
                                     "sub" => "1907",
                                     "username" => "",
-                                    "interface_language" => ""
+                                    "interface_language" => "",
+                                    "region" => ""
                                   })
   end
 

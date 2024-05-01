@@ -12,6 +12,7 @@ describe AuthenticJwt::Authorizer do
                                 email: "isabellekermode@example.com",
                                 username: "isabellekermode",
                                 interface_language: "de",
+                                region: "us",
                                 roles: [:SUBSCRIBER]
                               })
   end
@@ -24,6 +25,7 @@ describe AuthenticJwt::Authorizer do
                                 username: "aidentwopeny",
                                 interface_language: "de",
                                 roles: [:SUBSCRIBER],
+                                region: "us",
                                 accounts: [
                                   AuthenticJwt::Payload::Account.new({
                                                                        aud: ENV["AUTHENTIC_AUTH_ACCOUNT_ID"],
@@ -40,6 +42,7 @@ describe AuthenticJwt::Authorizer do
                                 email: "charlottecumbrae@example.com",
                                 username: "charlottecumbrae",
                                 interface_language: "de",
+                                region: "us",
                                 roles: [:SUBSCRIBER],
                                 accounts: [
                                   AuthenticJwt::Payload::Account.new({
@@ -59,6 +62,7 @@ describe AuthenticJwt::Authorizer do
                                 username: "jadeuther",
                                 interface_language: "de",
                                 roles: [:SUBSCRIBER],
+                                region: "us",
                                 accounts: [
                                   AuthenticJwt::Payload::Account.new({
                                                                        aud: ENV["AUTHENTIC_AUTH_ACCOUNT_ID"],
@@ -77,6 +81,7 @@ describe AuthenticJwt::Authorizer do
                                 username: "frodo",
                                 interface_language: "de",
                                 roles: [:SUBSCRIBER],
+                                region: "us",
                                 accounts: [
                                   AuthenticJwt::Payload::Account.new({
                                                                        aud: ENV["AUTHENTIC_AUTH_ACCOUNT_ID"],
