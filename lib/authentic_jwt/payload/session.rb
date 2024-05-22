@@ -4,6 +4,7 @@ module AuthenticJwt
   module Payload
     class Session < Base
       attr_accessor \
+        :jti,
         :sub,
         :exp,
         :iat,
@@ -20,6 +21,7 @@ module AuthenticJwt
         :region
 
       def initialize(attributes)
+        self.jti = get_string(attributes, :jti)
         self.sub = get_string(attributes, :sub)
         self.exp = get_integer(attributes, :exp)
         self.iat = get_integer(attributes, :iat)
