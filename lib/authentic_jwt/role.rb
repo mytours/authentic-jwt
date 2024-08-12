@@ -10,6 +10,10 @@ module AuthenticJwt
       MAPPING
     end
 
+    def self.enum_sym
+      MAPPING.map { |k,v| [k.to_sym, v] }.to_h
+    end
+
     def self.read
       READ + WRITE + ADMIN
     end
