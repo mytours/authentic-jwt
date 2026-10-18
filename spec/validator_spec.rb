@@ -37,7 +37,10 @@ describe AuthenticJwt::Validator do
                                     "sub" => "1907",
                                     "username" => "",
                                     "interface_language" => "",
-                                    "region" => "ca"
+                                    "region" => "ca",
+                                    "scope" => "",
+                                    "aud" => "",
+                                    "account_ids" => []
                                   })
   end
 

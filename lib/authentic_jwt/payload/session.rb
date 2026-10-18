@@ -18,7 +18,10 @@ module AuthenticJwt
         :external,
         :jwt_token_version,
         :signup_provider,
-        :region
+        :region,
+        :scope,
+        :aud,
+        :account_ids
 
       def initialize(attributes)
         self.jti = get_string(attributes, :jti)
@@ -36,6 +39,14 @@ module AuthenticJwt
         self.external = get_array(attributes, :external)
         self.jwt_token_version = get_integer(attributes, :jwt_token_version)
         self.signup_provider = get_string(attributes, :signup_provider)
+        self.scope = get_string(attributes, :scope)
+        self.aud = get_string(attributes, :aud)
+        self.account_ids = get_array(attributes, :account_ids)
+      end
+
+      # The OAuth `scope` claim is space-separated; first-party tokens carry none.
+      def scopes
+        scope.split
       end
 
       def self.new_from_raw(raw_attributes)
@@ -44,6 +55,7 @@ module AuthenticJwt
         raw_attributes[:accounts] = (raw_attributes[:accounts] || []).map { |a| Account.new_from_raw(a) }
         raw_attributes[:partners] = (raw_attributes[:partners] || []).map { |p| Partner.new_from_raw(p) }
         raw_attributes[:external] = (raw_attributes[:external] || []).map { |e| External.new_from_raw(e) }
+        raw_attributes[:account_ids] = (raw_attributes[:account_ids] || []).map { |a| AccountGrant.new_from_raw(a) }
         new(raw_attributes)
       end
     end
