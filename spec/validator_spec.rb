@@ -64,4 +64,87 @@ describe AuthenticJwt::Validator do
   it "does not fail when called with a signed jwt with unknown attributes" do
     validator.call(header: "Bearer #{wrong_format_jwt}")
   end
+
+  describe "audience" do
+    let(:key) { OpenSSL::PKey::RSA.generate(2048) }
+    let(:agent_audience) { "https://mcp.test/mcp" }
+
+    def header_for(claims)
+      payload = { jti: "6095d1c8", sub: "1907", exp: Time.now.to_i + 60 }.merge(claims)
+      "Bearer #{JWT.encode(payload, key, 'RS512')}"
+    end
+
+    def validator_for(**options)
+      AuthenticJwt::Validator.new(public_key: key.public_key.to_pem, **options)
+    end
+
+    context "when the caller names no audience" do
+      it "accepts a token without aud" do
+        expect(validator_for.call(header: header_for({})).sub).to eq("1907")
+      end
+
+      it "accepts a token whose aud is blank, which Authentic never emits" do
+        expect(validator_for.call(header: header_for(aud: "")).aud).to eq("")
+      end
+
+      it "refuses a token with aud" do
+        expect { validator_for.call(header: header_for(aud: agent_audience)) }
+          .to raise_error(AuthenticJwt::WrongAudience, "JWT audience not accepted")
+      end
+
+      it "refuses it as Unauthorized, so existing handlers answer it" do
+        expect { validator_for.call(header: header_for(aud: agent_audience)) }.to raise_error(AuthenticJwt::Unauthorized)
+      end
+
+      it "reports an expired token with aud as expired" do
+        expect { validator_for.call(header: header_for(aud: agent_audience, exp: Time.now.to_i - 60)) }
+          .to raise_error(AuthenticJwt::Expired)
+      end
+    end
+
+    context "when the caller names an audience" do
+      subject(:validator) { validator_for(audience: agent_audience) }
+
+      it "accepts a token for that audience" do
+        expect(validator.call(header: header_for(aud: agent_audience)).aud).to eq(agent_audience)
+      end
+
+      it "refuses a token for another audience" do
+        expect { validator.call(header: header_for(aud: "https://elsewhere.test/mcp")) }
+          .to raise_error(AuthenticJwt::WrongAudience, "JWT audience not accepted")
+      end
+
+      it "refuses a token without aud" do
+        expect { validator.call(header: header_for({})) }.to raise_error(AuthenticJwt::WrongAudience, "JWT has no audience")
+      end
+
+      it "refuses an aud list, even one naming the audience" do
+        expect { validator.call(header: header_for(aud: [agent_audience])) }.to raise_error(AuthenticJwt::WrongAudience)
+      end
+    end
+
+    context "when the caller names a blank audience" do
+      [nil, ""].each do |blank|
+        it "refuses every token for #{blank.inspect}" do
+          validator = validator_for(audience: blank)
+
+          expect { validator.call(header: header_for(aud: agent_audience)) }.to raise_error(AuthenticJwt::WrongAudience)
+          expect { validator.call(header: header_for({})) }.to raise_error(AuthenticJwt::WrongAudience)
+        end
+      end
+    end
+
+    context "when the caller names an audience and keeps first-party tokens" do
+      subject(:validator) { validator_for(audience: agent_audience, first_party: true) }
+
+      it "accepts a token for that audience and a token without aud" do
+        expect(validator.call(header: header_for(aud: agent_audience)).aud).to eq(agent_audience)
+        expect(validator.call(header: header_for({})).aud).to eq("")
+      end
+
+      it "refuses a token for another audience" do
+        expect { validator.call(header: header_for(aud: "https://elsewhere.test/mcp")) }.to raise_error(AuthenticJwt::WrongAudience)
+      end
+    end
+  end
 end

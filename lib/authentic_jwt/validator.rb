@@ -5,10 +5,18 @@ require "jwt"
 
 module AuthenticJwt
   class Validator
-    def initialize(public_key: ENV["AUTHENTIC_AUTH_PUBLIC_KEY"])
+    UNSET = Object.new.freeze
+    private_constant :UNSET
+
+    # A token carrying `aud`, such as an agent's grant, is refused unless the caller names that
+    # audience. Naming one refuses tokens without `aud` too, unless `first_party: true` keeps them.
+    # A blank audience matches nothing, so a missing setting fails closed.
+    def initialize(public_key: ENV["AUTHENTIC_AUTH_PUBLIC_KEY"], audience: UNSET, first_party: UNSET.equal?(audience))
       raise Unauthorized, "JWT public key not present" if public_key.to_s.empty?
 
       @public_key = OpenSSL::PKey::RSA.new(public_key.to_s)
+      @audience = UNSET.equal?(audience) ? "" : audience.to_s
+      @first_party = first_party
     end
 
     def call(header:)
@@ -24,7 +32,7 @@ module AuthenticJwt
     BEARER_PATTERN = /Bearer (.+)/.freeze
     ALGORITHM = "RS512"
 
-    attr_reader :public_key
+    attr_reader :public_key, :audience, :first_party
 
     def extract_bearer_token(header:)
       # rubocop:disable Style/GuardClause
@@ -54,7 +62,17 @@ module AuthenticJwt
         end
       end
 
+      check_audience!(raw_payload["aud"])
+
       Payload.new_from_raw(raw_payload)
+    end
+
+    def check_audience!(aud)
+      if aud.nil? || aud == ""
+        raise WrongAudience, "JWT has no audience" unless first_party
+      elsif audience.empty? || aud != audience
+        raise WrongAudience, "JWT audience not accepted"
+      end
     end
   end
 end

@@ -9,7 +9,7 @@ module AuthenticJwt
       def before
         return unless scope
 
-        validator = AuthenticJwt::Validator.new
+        validator = AuthenticJwt::Validator.new(**audience_options)
         payload = validator.call(header: header)
 
         authorizer = AuthenticJwt::Authorizer.new
@@ -37,6 +37,13 @@ module AuthenticJwt
         return unless route_setting
 
         route_setting.fetch(:scope, nil)
+      end
+
+      # A callable audience is read per request, so the route can name an ENV value set after boot.
+      def audience_options
+        options = route_setting.slice(:audience, :first_party)
+        options[:audience] = options[:audience].call if options[:audience].respond_to?(:call)
+        options
       end
     end
   end

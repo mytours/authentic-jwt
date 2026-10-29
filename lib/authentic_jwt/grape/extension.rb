@@ -5,8 +5,9 @@ require "grape"
 module AuthenticJwt
   module Grape
     module Extension
-      def oauth2(value)
-        route_setting(:oauth2, scope: value)
+      # `audience:` and `first_party:` are passed to AuthenticJwt::Validator.
+      def oauth2(value, **)
+        route_setting(:oauth2, scope: value, **)
         value
       end
 
