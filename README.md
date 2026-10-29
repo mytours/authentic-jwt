@@ -12,7 +12,17 @@ gem "authentic-jwt"
 
 ## Usage
 
-TODO: Write usage instructions here
+### Audience
+
+Since 1.14.0, `AuthenticJwt::Validator` refuses a token that carries `aud`, which Authentic sets on an agent's grant, unless the caller names that audience. The refusal is `AuthenticJwt::WrongAudience`, a subclass of `AuthenticJwt::Unauthorized`.
+
+```ruby
+AuthenticJwt::Validator.new                                                  # tokens without aud only
+AuthenticJwt::Validator.new(audience: ENV["AGENT_AUDIENCE"])                 # aud must equal it; a blank value accepts nothing
+AuthenticJwt::Validator.new(audience: ENV["AGENT_AUDIENCE"], first_party: true) # either
+```
+
+In Grape, a route passes the same options through `route_setting :oauth2, scope: "read", audience: -> { ENV["AGENT_AUDIENCE"] }, first_party: true`, or `oauth2 "read", audience: ...`. A callable audience is read per request.
 
 ## Development
 
