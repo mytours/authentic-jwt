@@ -40,7 +40,8 @@ describe AuthenticJwt::Validator do
                                     "region" => "ca",
                                     "scope" => "",
                                     "aud" => "",
-                                    "account_ids" => []
+                                    "account_ids" => [],
+                                    "grant_id" => nil
                                   })
   end
 
