@@ -41,7 +41,8 @@ describe AuthenticJwt::Validator do
                                     "scope" => "",
                                     "aud" => "",
                                     "account_ids" => [],
-                                    "grant_id" => nil
+                                    "grant_id" => nil,
+                                    "client_id" => ""
                                   })
   end
 

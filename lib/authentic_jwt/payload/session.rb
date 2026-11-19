@@ -22,7 +22,8 @@ module AuthenticJwt
         :scope,
         :aud,
         :account_ids,
-        :grant_id
+        :grant_id,
+        :client_id
 
       def initialize(attributes)
         self.jti = get_string(attributes, :jti)
@@ -46,6 +47,8 @@ module AuthenticJwt
         # The consent an agent's token descends from. Nil rather than get_integer's 0, so a first-party
         # token, whose blank claims are dropped, carries none.
         self.grant_id = attributes[:grant_id]
+        # The client an agent's token was issued to: its registered id, or the URL of its metadata document.
+        self.client_id = get_string(attributes, :client_id)
       end
 
       # The OAuth `scope` claim is space-separated; first-party tokens carry none.

@@ -8,7 +8,7 @@ describe AuthenticJwt::Payload do
       "jti" => "a1", "sub" => "1907", "exp" => 1, "region" => "us",
       "scope" => "read write", "aud" => "https://mcp.stqry.com/mcp",
       "account_ids" => [{ "id" => "1776", "region" => "ca" }, { "id" => "1", "region" => "us" }],
-      "grant_id" => 533
+      "grant_id" => 533, "client_id" => "https://chatgpt.com/oauth/client.json"
     }
   end
 
@@ -16,6 +16,7 @@ describe AuthenticJwt::Payload do
     payload = described_class.new_from_raw(agent_claims)
 
     expect(payload.grant_id).to eq(533)
+    expect(payload.client_id).to eq("https://chatgpt.com/oauth/client.json")
     expect(payload.scope).to eq("read write")
     expect(payload.scopes).to eq(%w[read write])
     expect(payload.aud).to eq("https://mcp.stqry.com/mcp")
@@ -32,6 +33,7 @@ describe AuthenticJwt::Payload do
     expect(payload.aud).to eq("")
     expect(payload.account_ids).to eq([])
     expect(payload.grant_id).to be_nil
+    expect(payload.client_id).to eq("")
   end
 
   it "serialises the grant entries" do
@@ -39,5 +41,6 @@ describe AuthenticJwt::Payload do
 
     expect(payload.as_json["account_ids"]).to eq([{ "id" => "1776", "region" => "ca" }, { "id" => "1", "region" => "us" }])
     expect(payload.as_json["grant_id"]).to eq(533)
+    expect(payload.as_json["client_id"]).to eq("https://chatgpt.com/oauth/client.json")
   end
 end
